@@ -1,0 +1,183 @@
+package org.emg.cines_cinex.gui;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+
+
+
+
+import org.emg.cines_cinex.base.Pelicula;
+import org.emg.cines_cinex.util.Util;
+import org.emg.cines_cinex.util.Util.Accion;
+
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class JPeliculaModificar extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+	private JTextField tfProductora;
+	private JTextField tfDirector;
+	private JTextField tfTitulo;
+	
+	private String titulo;
+	private String director;
+	private String productora;
+	private int ID;
+	
+	private Util.Accion accion;
+	
+	private Pelicula pelicula;
+	
+	
+
+	public Accion mostrarDialogo() {
+		setVisible(true);
+		
+		return accion;
+	}
+	
+	public Pelicula getPelicula(){
+		
+		
+		
+		pelicula.setTitulo(titulo);
+		pelicula.setDirector(director);
+		pelicula.setProductora(productora);
+		
+		return pelicula;
+	}
+	
+	public void setPelicula(Pelicula pelicula){
+		
+		this.pelicula = pelicula;
+		
+	
+		this.titulo = pelicula.getTitulo();
+		this.director = pelicula.getDirector();
+		this.productora = pelicula.getProductora();
+		
+		
+	}
+	
+	private void aceptar(){
+		
+		titulo = tfTitulo.getText();
+		director = tfDirector.getText();
+		productora = tfProductora.getText();
+		
+		
+		accion = Accion.ACEPTAR;
+		setVisible(false);
+	}
+	
+	private void cancelar() {
+		accion = Accion.CANCELAR;
+		setVisible(false);
+	}
+	
+	public void inicializar() {
+		
+		tfTitulo.setText(titulo);
+		tfDirector.setText(director);
+		tfProductora.setText(productora);
+		
+	}
+	
+	
+
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			JPeliculaModificar dialog = new JPeliculaModificar();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public JPeliculaModificar() {
+		setModal(true);
+		setBounds(100, 100, 194, 174);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		{
+			JLabel lblTitulo = new JLabel("Titulo");
+			lblTitulo.setBounds(10, 11, 46, 14);
+			contentPanel.add(lblTitulo);
+		}
+		{
+			JLabel lblDirector = new JLabel("Director");
+			lblDirector.setBounds(10, 36, 46, 14);
+			contentPanel.add(lblDirector);
+		}
+		{
+			JLabel lblProductora = new JLabel("Productora");
+			lblProductora.setBounds(10, 61, 75, 14);
+			contentPanel.add(lblProductora);
+		}
+		{
+			tfProductora = new JTextField();
+			tfProductora.setBounds(70, 58, 86, 20);
+			contentPanel.add(tfProductora);
+			tfProductora.setColumns(10);
+		}
+		{
+			tfDirector = new JTextField();
+			tfDirector.setBounds(70, 33, 86, 20);
+			contentPanel.add(tfDirector);
+			tfDirector.setColumns(10);
+		}
+		{
+			tfTitulo = new JTextField();
+			tfTitulo.setBounds(70, 8, 86, 20);
+			contentPanel.add(tfTitulo);
+			tfTitulo.setColumns(10);
+		}
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						aceptar();
+					}
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						cancelar();
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+	}
+
+}
