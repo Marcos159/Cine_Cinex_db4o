@@ -1,6 +1,8 @@
 package org.emg.cines_cinex.gui;
 
 import java.sql.Connection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -10,7 +12,9 @@ import org.emg.cines_cinex.base.Pelicula;
 import org.emg.cines_cinex.util.Util;
 
 
+
 import com.db4o.ObjectSet;
+import com.db4o.query.Predicate;
 
 
 
@@ -76,5 +80,36 @@ public class TablaPeliculas extends JTable {
 		return pelicula;
 	}
 	
+	public void listar(String filtro) {
+		vaciar();
+		filtro = filtro.toLowerCase();
+		List<Pelicula> peliculas = Util.db.query(Pelicula.class);
+		for (Pelicula pelicula : peliculas) {
+			
+			if (pelicula.getTitulo().toLowerCase().contains(filtro) || 
+				pelicula.getDirector().toLowerCase().contains(filtro)){
+				
+				anadirFila(pelicula);
+			}
+			
+		}
+	}
+	private void anadirFila(Pelicula pelicula) {
+		Object[] fila = new Object[] {
+				pelicula.getId(),
+				pelicula.getTitulo(),
+				pelicula.getDirector(),
+				pelicula.getProductora()				
+			};
+		
+		modeloDatos.addRow(fila);
+		
+	}
+	
+	public void vaciar() {
+		
+		modeloDatos.setNumRows(0);
+				
+	}
 	
 }

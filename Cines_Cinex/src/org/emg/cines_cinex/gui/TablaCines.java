@@ -74,6 +74,41 @@ public class TablaCines extends JTable{
 		return cine;
 	}
 	
+	public void listar(String filtro) {
+		vaciar();
+		
+		filtro = filtro.toLowerCase();
+		
+		List<Cine> cines = Util.db.query(Cine.class);
+		
+		for (Cine cine : cines) {
+			
+			if (cine.getNombre().toLowerCase().contains(filtro) || 
+				cine.getCiudad().toLowerCase().contains(filtro)){
+				
+				anadirFila(cine);
+			}
+		}
+	}
+	
+	private void anadirFila(Cine cine) {
+		Object[] fila = new Object[] {
+				cine.getId(),
+				cine.getNombre(),
+				cine.getCiudad(),
+				cine.getSalas()				
+			};
+		
+		modeloDatos.addRow(fila);
+		
+	}
+	
+	public void vaciar() {
+		
+		modeloDatos.setNumRows(0);
+				
+	}
+	
 	
 
 }

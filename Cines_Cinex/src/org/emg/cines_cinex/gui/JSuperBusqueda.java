@@ -90,18 +90,14 @@ public class JSuperBusqueda extends JDialog {
 	public void buscarGlobal(){
 		
 	
-		/*tablaPeliculas.listar(tfBusquedaGlobal.getText());
+		tablaPeliculas.listar(tfBusquedaGlobal.getText());
 		tablaCines.listar(tfBusquedaGlobal.getText());
-		*/
+		
 		
 	}
 	
 	private void aceptar() {
 		
-
-	//	Representante representante = tablaRepresentante.getRepresentanteSeleccionado();
-		
-			//idActor_representante = representante.getId();
 			
 			setVisible(false);
 		
